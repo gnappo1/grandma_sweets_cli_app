@@ -13,6 +13,9 @@ class Recipe
 
   def add_to_favourites
     @favourites << self
-  end 
+  end
 
+  def favourites
+    @favourites
+  end
 end
