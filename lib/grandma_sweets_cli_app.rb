@@ -6,7 +6,7 @@ require "colorize"
 
 
 
-require "./grandma_sweets_cli_app/version"
-require "./grandma_sweets_cli_app/cli"
-require "./grandma_sweets_cli_app/scraper"
-require "./grandma_sweets_cli_app/recipe"
+require "grandma_sweets_cli_app/version"
+require "grandma_sweets_cli_app/cli"
+require "grandma_sweets_cli_app/scraper"
+require "grandma_sweets_cli_app/recipe"
