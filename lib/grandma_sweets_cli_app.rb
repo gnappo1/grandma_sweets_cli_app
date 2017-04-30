@@ -1,5 +1,11 @@
-require "grandma_sweets_cli_app/version"
+#this is my environment!
+require 'open-uri'
+require 'nokogiri'
+require 'pry'
 
-module GrandmaSweetsCliApp
-  # Your code goes here...
-end
+
+
+require "./grandma_sweets_cli_app/version"
+require "./grandma_sweets_cli_app/cli"
+require "./grandma_sweets_cli_app/scraper"
+require "./grandma_sweets_cli_app/recipe"
