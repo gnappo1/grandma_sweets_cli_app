@@ -25,7 +25,7 @@ class Scraper
     recipe.history = recipe_page.css(".intro p").text
     recipe.dose_for = recipe_page.css(".yield strong").text
     recipe.difficulty = recipe_page.css(".difficolta strong").text
-    recipe.ingridients = recipe_page.css(".ingredienti .ingridient").text.gsub("\t", "").gsub("\n", " ")
+    recipe.ingridients = recipe_page.css(".ingredienti .ingredient").text.gsub("\t", "").gsub("\n", " ")
     recipe.ready_in_time = recipe_page.css(".preptime strong").text
     recipe.instructions = recipe_page.css(".right-push p")[1..9].text
   end
