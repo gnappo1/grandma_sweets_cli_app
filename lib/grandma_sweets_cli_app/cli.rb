@@ -126,4 +126,7 @@ class CLI
     exit
   end
 
+  def clear
+    system("clear")
+  end
 end
