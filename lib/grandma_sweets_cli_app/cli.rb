@@ -94,8 +94,17 @@ class CLI
     puts "_____________________________________________________________"
   end
 
-  
-
-
+  def more_recipes
+    puts "Would you like to see any other recipes? Type 'y' for yes and 'n' to exit the program."
+    input = gets.strip.downcase
+    if input == "y"
+      list_recipes
+      select_recipe
+    elsif input == "n"
+      self.goodbye
+    else
+      puts "Wrong input. Please type Type 'y' for yes and 'n' to exit the program."
+    end
+  end
 
 end
