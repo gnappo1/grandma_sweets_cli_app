@@ -65,5 +65,10 @@ class CLI
     end
   end
 
+  def read_recipe(input)
+    recipe = @s.recipes[input.to_i-1]
+    @s.scrape_recipe_details(recipe)
+  end
+
 
 end
