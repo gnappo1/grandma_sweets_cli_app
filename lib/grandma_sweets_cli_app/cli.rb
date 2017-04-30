@@ -17,5 +17,16 @@ class CLI
     goodbye
   end
 
+  def list_recipes
+    puts "Here's the list of our recipes:"
+    @s.recipes.each.with_index(1) do |recipe, i|
+      puts "-----------------------------------------------------"
+      puts " #{(i).to_s} " + "#{recipe.name}"
+      puts " "
+      puts "     #{recipe.description}"
+      puts "-----------------------------------------------------"
+    end
+  end
+
 
 end
