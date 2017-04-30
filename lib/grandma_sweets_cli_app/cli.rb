@@ -107,4 +107,16 @@ class CLI
     end
   end
 
+  def add_recipe_to_favourites(input)
+    recipe = @s.recipes[input.to_i-1]
+    puts "Do you like this recipe? Would you like to save it in your 'Favorites List'?[y/n]"
+    command = gets.strip.downcase
+    if command == "y" || command == "yes"
+      recipe.add_to_favourites
+      "Recipe has been saved!"
+    else
+      "Recipe hasn't been saved."
+    end
+  end
+
 end
