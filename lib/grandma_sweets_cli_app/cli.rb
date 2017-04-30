@@ -119,4 +119,11 @@ class CLI
     end
   end
 
+  def goodbye
+    puts "Thank's for using this Gem, now it's time to get dirty and cook some 'Delicatesse'!"
+    puts "Hope to see you soon!"
+    sleep 1
+    exit
+  end
+
 end
