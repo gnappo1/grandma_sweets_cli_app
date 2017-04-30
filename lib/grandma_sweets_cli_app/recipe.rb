@@ -7,4 +7,12 @@ class Recipe
     @favourites = []
   end
 
-end 
+  def self.all
+    @@all
+  end
+
+  def add_to_favourites
+    @favourites << self
+  end 
+
+end
