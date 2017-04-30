@@ -7,5 +7,15 @@ class CLI
     @s = Scraper.new
   end
 
-  
+  def call
+    @s.scrape_recipes
+    sleep 4
+    list_recipes
+    sleep 2
+    meditation_pause
+    select_recipe
+    goodbye
+  end
+
+
 end
