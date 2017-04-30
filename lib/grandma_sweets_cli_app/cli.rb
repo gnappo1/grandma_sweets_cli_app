@@ -46,7 +46,22 @@ class CLI
     input = ""
     while input != "exit" || input != "back"
       input = gets.strip.downcase
-      clear
+      case input
+        when /(\d+)/
+          read_recipe(input)
+          sleep 2
+          add_recipe_to_favourites(input)
+          more_recipes
+        when "back"
+          clear
+          list_recipes
+          select_recipe
+        when "exit"
+          goodbye
+        else
+          puts "Wrong input. Please type the number of the recipe you're interested in, type 'back' to list again all recipes or 'exit' to exit"
+          input = gets.strip.downcase
+      end
     end
   end
 
