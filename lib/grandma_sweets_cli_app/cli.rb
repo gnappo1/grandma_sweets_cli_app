@@ -28,5 +28,17 @@ class CLI
     end
   end
 
+  def meditation_pause
+    puts "Press 'c' when you feel ready to pick your recipe."
+    input = gets.strip.downcase
+    if input == "c"
+      clear
+      select_recipe
+    else
+      puts "Wrong input. Type 'c' to continue."
+      meditation_pause
+    end
+  end
+
 
 end
