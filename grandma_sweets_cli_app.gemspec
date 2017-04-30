@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["gnappo1"]
   spec.email         = ["gnappo.1@live.it"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{Rubygem that provides the user Italian dessert recipes to experiment with}
+  spec.description   = %q{Grandma_sweets_cli_app is a gem that will allow you to explore some of the most famous Italian tradition dessert recipes, giving details and procedures to help you impress your guests, and yourself! }
+  spec.homepage      = "https://github.com/gnappo1/grandma_sweets_cli_app"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
