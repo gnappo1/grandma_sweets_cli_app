@@ -68,7 +68,34 @@ class CLI
   def read_recipe(input)
     recipe = @s.recipes[input.to_i-1]
     @s.scrape_recipe_details(recipe)
+    puts ""
+    puts "____________________ #{recipe.name} ________________________"
+    puts ""
+    puts "Star rating:  #{recipe.grade}/5 "
+    puts "Recipe reviews:  #{recipe.reviews} "
+    puts ""
+    puts "____________________________________________________________"
+    puts "                        History                          \n "
+    puts " #{recipe.history}"
+    puts "____________________________________________________________"
+    puts "                        Details                           \n"
+    puts "Ready in:           #{recipe.ready_in_time}"
+    puts "Doses for:           #{recipe.dose_for}"
+    puts "Difficulty:           #{recipe.difficulty}"
+    puts "_____________________________________________________________"
+    puts "                        Ingridients                      \n  "
+    puts "  #{recipe.ingridients}"
+    puts ""
+    puts "_____________________________________________________________"
+    puts "             Procedure, Curiosities and tips              \n "
+    puts ""
+    puts "#{recipe.instructions}\n"
+    puts ""
+    puts "_____________________________________________________________"
   end
+
+  
+
 
 
 end
