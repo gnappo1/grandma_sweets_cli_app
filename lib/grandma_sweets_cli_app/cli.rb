@@ -40,5 +40,15 @@ class CLI
     end
   end
 
+  def select_recipe
+    puts "So many delicious recipes... Which one would you like to try?"
+    puts "Type the number corrisponding to the recipe you'd like to know more about, 'back' to list the articles again or 'exit' to exit the program."
+    input = ""
+    while input != "exit" || input != "back"
+      input = gets.strip.downcase
+      clear
+    end
+  end
+
 
 end
