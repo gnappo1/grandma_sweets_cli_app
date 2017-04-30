@@ -18,5 +18,15 @@ class Scraper
     end
   end
 
-
+  def scrape_recipe_details(recipe)
+    recipe_page = Nokogiri::HTML(open(recipe.url))
+    recipe.grade = recipe_page.css(".rating_panel").attr("data-content-rate").text
+    recipe.reviews = recipe_page.css("article#content div.rating_rate").attr("title").text
+    recipe.history = recipe_page.css(".intro p").text
+    recipe.dose_for = recipe_page.css(".yield strong").text
+    recipe.difficulty = recipe_page.css(".difficolta strong").text
+    recipe.ingridients = recipe_page.css(".ingredienti .ingridient").text.gsub("\t", "").gsub("\n", " ")
+    recipe.ready_in_time = recipe_page.css(".preptime strong").text
+    recipe.instructions = recipe_page.css(".right-push p")[1..9].text
+  end
 end
