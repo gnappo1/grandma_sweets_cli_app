@@ -11,7 +11,7 @@ class CLI
     @s.scrape_recipes
     sleep 4
     list_recipes
-    sleep 2
+    sleep 0.5
     meditation_pause
     select_recipe
     goodbye
@@ -47,7 +47,7 @@ class CLI
     while input != "exit" || input != "back"
       input = gets.strip.downcase
       case input
-      when /(\d+)/
+      when /^([1-9]|1[0-5])$/
         read_recipe(input)
         sleep 2
         add_recipe_to_favourites(input)
@@ -113,14 +113,21 @@ class CLI
 
   def add_recipe_to_favourites(input)
     recipe = @s.recipes[input.to_i-1]
-    puts "Do you like this recipe? Would you like to save it in your " + "'Favorites List'".colorize(:color => :yellow).bold + "?[y/n]"
+    puts "Do you like this recipe? Would you like to save it in your " + "'Favorites List'".colorize(:color => :yellow).bold + " and display it?[y/n]"
     command = ""
     until command == "y" || command == "n"
       command = gets.strip.downcase
       case command
       when "y"
         puts "Recipe has been saved!".colorize(:color => :green)
-        recipe.add_to_favourites
+        recipe.class.add_to_favourites(recipe)
+        recipe.class.favourites.each.with_index(1) do |recipe, i|
+          puts "-----------------------------------------------------".colorize(:color => :magenta)
+          puts " #{(i).to_s}. " + "#{recipe.name}".colorize(:color => :green)
+          puts " "
+          puts "     #{recipe.description}"
+          puts "-----------------------------------------------------".colorize(:color => :magenta)
+        end
       when "n"
         puts "Recipe hasn't been saved.".colorize(:color => :green)
       else
@@ -128,6 +135,7 @@ class CLI
       end
     end
   end
+
 
   def goodbye
     puts "Thank's for using this Gem, now it's time to get dirty and cook some " + "'Delicatesse'".italic + "!\n\n"
