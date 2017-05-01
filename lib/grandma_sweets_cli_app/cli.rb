@@ -1,9 +1,9 @@
 class CLI
 
   def initialize
-    puts "Welcome to GrandmaSweets Rubygem! Feel in the mood for some delicious recipes? Well, you're in the right place!!!"
-    puts "Pick among our selection of traditional Italian recipes to impress your friends, and yourself!"
-    puts "Loading recipes..."
+    puts "Welcome to GrandmaSweets Rubygem! Feel in the mood for some delicious recipes? Well, you're in the right place!!!\n".colorize(:color => :green)
+    puts "Pick among our selection of traditional Italian recipes to impress your friends, and yourself!\n\n"
+    puts "Loading recipes...\n\n".colorize(:color => :red)
     @s = Scraper.new
   end
 
@@ -20,29 +20,29 @@ class CLI
   def list_recipes
     puts "Here's the list of our recipes:"
     @s.recipes.each.with_index(1) do |recipe, i|
-      puts "-----------------------------------------------------"
-      puts " #{(i).to_s} " + "#{recipe.name}"
+      puts "-----------------------------------------------------".colorize(:color => :magenta)
+      puts " #{(i).to_s}. " + "#{recipe.name}".colorize(:color => :green)
       puts " "
       puts "     #{recipe.description}"
-      puts "-----------------------------------------------------"
+      puts "-----------------------------------------------------".colorize(:color => :magenta)
     end
   end
 
   def meditation_pause
-    puts "Press 'c' when you feel ready to pick your recipe."
+    puts "Press " + "'c'".colorize(:color => :green) + " when you feel ready to pick your recipe."
     input = gets.strip.downcase
     if input == "c"
       clear
       select_recipe
     else
-      puts "Wrong input. Type 'c' to continue."
+      puts "Wrong input. Type " + "'c'".colorize(:color => :green) + " to continue."
       meditation_pause
     end
   end
 
   def select_recipe
-    puts "So many delicious recipes... Which one would you like to try?"
-    puts "Type the number corrisponding to the recipe you'd like to know more about, 'back' to list the articles again or 'exit' to exit the program."
+    puts "So many delicious recipes... Which one would you like to try?\n\n"
+    puts "Type the number corrisponding to the recipe you'd like to know more about, " + "'back'".colorize(:color => :green) + " to list the articles again or " + "'exit'".colorize(:color => :red) + " to exit the program."
     input = ""
     while input != "exit" || input != "back"
       input = gets.strip.downcase
@@ -59,8 +59,7 @@ class CLI
         when "exit"
           goodbye
         else
-          puts "Wrong input. Please type the number of the recipe you're interested in, type 'back' to list again all recipes or 'exit' to exit"
-          input = gets.strip.downcase
+          puts "Wrong input. Please type the " + " number ".colorize(:color => :yellow).bold + "of the recipe you're interested in, type " + "'back'".colorize(:color => :green) + " to list again all recipes or " + "'exit'".colorize(:color => :red) + " to exit"
       end
     end
   end
@@ -69,33 +68,34 @@ class CLI
     recipe = @s.recipes[input.to_i-1]
     @s.scrape_recipe_details(recipe)
     puts ""
-    puts "____________________ #{recipe.name} ________________________"
+    puts "___________________________________________   ".colorize(:color => :magenta) + " #{recipe.name} ".upcase.colorize(:color => :yellow).bold + "   ________________________________________________".colorize(:color => :magenta)
+    puts ""
     puts ""
     puts "Star rating:  #{recipe.grade}/5 "
     puts "Recipe reviews:  #{recipe.reviews} "
     puts ""
-    puts "____________________________________________________________"
-    puts "                        History                          \n "
+    puts "____________________________________________________________".colorize(:color => :magenta)
+    puts "                        History                          \n ".colorize(:color => :yellow).bold
     puts " #{recipe.history}"
-    puts "____________________________________________________________"
-    puts "                        Details                           \n"
+    puts "____________________________________________________________".colorize(:color => :magenta)
+    puts "                        Details                           \n".colorize(:color => :yellow).bold
     puts "Ready in:           #{recipe.ready_in_time}"
     puts "Doses for:           #{recipe.dose_for}"
     puts "Difficulty:           #{recipe.difficulty}"
-    puts "_____________________________________________________________"
-    puts "                        Ingridients                      \n  "
+    puts "_____________________________________________________________".colorize(:color => :magenta)
+    puts "                        Ingridients                      \n  ".colorize(:color => :yellow).bold
     puts "  #{recipe.ingridients}"
     puts ""
-    puts "_____________________________________________________________"
-    puts "             Procedure, Curiosities and tips              \n "
+    puts "_____________________________________________________________".colorize(:color => :magenta)
+    puts "             Procedure, Curiosities and tips              \n ".colorize(:color => :yellow).bold
     puts ""
     puts "#{recipe.instructions}\n"
     puts ""
-    puts "_____________________________________________________________"
+    puts "______________________________________________________________________________________________________________________".colorize(:color => :magenta)
   end
 
   def more_recipes
-    puts "Would you like to see any other recipes? Type 'y' for yes and 'n' to exit the program."
+    puts "Would you like to see any other recipes? Type " + "'y'".colorize(:color => :green) + " for yes and " + "'n'".colorize(:color => :red) + " to exit the program."
     input = gets.strip.downcase
     if input == "y"
       list_recipes
@@ -103,25 +103,25 @@ class CLI
     elsif input == "n"
       self.goodbye
     else
-      puts "Wrong input. Please type Type 'y' for yes and 'n' to exit the program."
+      puts "Wrong input. Please type Type " + "'y'".colorize(:color => :green) + " for yes and " + "'n'".colorize(:color => :red) + " to exit the program."
     end
   end
 
   def add_recipe_to_favourites(input)
     recipe = @s.recipes[input.to_i-1]
-    puts "Do you like this recipe? Would you like to save it in your 'Favorites List'?[y/n]"
+    puts "Do you like this recipe? Would you like to save it in your " + "'Favorites List'".colorize(:color => :yellow).bold + "?[y/n]"
     command = gets.strip.downcase
     if command == "y" || command == "yes"
       recipe.add_to_favourites
-      "Recipe has been saved!"
+      "Recipe has been saved!".colorize(:color => :green)
     else
-      "Recipe hasn't been saved."
+      "Recipe hasn't been saved.".colorize(:color => :green)
     end
   end
 
   def goodbye
-    puts "Thank's for using this Gem, now it's time to get dirty and cook some 'Delicatesse'!"
-    puts "Hope to see you soon!"
+    puts "Thank's for using this Gem, now it's time to get dirty and cook some " + "'Delicatesse'".italic + "!\n\n"
+    puts "Hope to see you soon!".italic
     sleep 1
     exit
   end
