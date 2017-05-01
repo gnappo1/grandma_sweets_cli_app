@@ -47,19 +47,19 @@ class CLI
     while input != "exit" || input != "back"
       input = gets.strip.downcase
       case input
-        when /(\d+)/
-          read_recipe(input)
-          sleep 2
-          add_recipe_to_favourites(input)
-          more_recipes
-        when "back"
-          clear
-          list_recipes
-          select_recipe
-        when "exit"
-          goodbye
-        else
-          puts "Wrong input. Please type the " + " number ".colorize(:color => :yellow).bold + "of the recipe you're interested in, type " + "'back'".colorize(:color => :green).bold + " to list again all recipes or " + "'exit'".colorize(:color => :red).bold + " to exit"
+      when /(\d+)/
+        read_recipe(input)
+        sleep 2
+        add_recipe_to_favourites(input)
+        more_recipes
+      when "back"
+        clear
+        list_recipes
+        select_recipe
+      when "exit"
+        goodbye
+      else
+        puts "Wrong input. Please type the " + " number ".colorize(:color => :yellow).bold + "of the recipe you're interested in, type " + "'back'".colorize(:color => :green).bold + " to list again all recipes or " + "'exit'".colorize(:color => :red).bold + " to exit"
       end
     end
   end
@@ -97,16 +97,16 @@ class CLI
   def more_recipes
     puts "Would you like to see any other recipes? Type " + "'y'".colorize(:color => :green) + " for yes and " + "'n'".colorize(:color => :red) + " to exit the program."
     input = ""
-    until input == "y" || input == "y"
+    until input == "y" || input == "n"
       input = gets.strip.downcase
       case input
-        when "y"
-          list_recipes
-          select_recipe
-        when "n"
-          self.goodbye
-        else
-          puts "Wrong input. Please type Type " + "'y'".colorize(:color => :green) + " for yes and " + "'n'".colorize(:color => :red) + " to exit the program."
+      when "y"
+        list_recipes
+        select_recipe
+      when "n"
+        self.goodbye
+      else
+        puts "Wrong input. Please type Type " + "'y'".colorize(:color => :green) + " for yes and " + "'n'".colorize(:color => :red) + " to exit the program."
       end
     end
   end
@@ -114,14 +114,18 @@ class CLI
   def add_recipe_to_favourites(input)
     recipe = @s.recipes[input.to_i-1]
     puts "Do you like this recipe? Would you like to save it in your " + "'Favorites List'".colorize(:color => :yellow).bold + "?[y/n]"
-    command = gets.strip.downcase
-    if command == "y"
-      puts "Recipe has been saved!".colorize(:color => :green)
-      recipe.add_to_favourites
-    elsif command == "n"
-      puts "Recipe hasn't been saved.".colorize(:color => :green)
-    else
-      puts "Wrong input. Please type Type " + "'y'".colorize(:color => :green) + " for yes and " + "'n'".colorize(:color => :red) + " for no."
+    command = ""
+    until command == "y" || command == "n"
+      command = gets.strip.downcase
+      case command
+      when "y"
+        puts "Recipe has been saved!".colorize(:color => :green)
+        recipe.add_to_favourites
+      when "n"
+        puts "Recipe hasn't been saved.".colorize(:color => :green)
+      else
+        puts "Wrong input. Please type Type " + "'y'".colorize(:color => :green) + " for yes and " + "'n'".colorize(:color => :red) + " for no."
+      end
     end
   end
 
