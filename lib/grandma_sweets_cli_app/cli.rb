@@ -30,13 +30,15 @@ class CLI
 
   def meditation_pause
     puts "Press " + "'c'".colorize(:color => :green) + " when you feel ready to pick your recipe."
-    input = gets.strip.downcase
-    if input == "c"
-      clear
-      select_recipe
-    else
-      puts "Wrong input. Type " + "'c'".colorize(:color => :green) + " to continue."
-      meditation_pause
+    input = ""
+    while input != "c"
+      input = gets.strip.downcase
+      if input == "c"
+        clear
+        select_recipe
+      else
+        puts "Wrong input. Type " + "'c'".colorize(:color => :green) + " to continue."
+      end
     end
   end
 
@@ -65,31 +67,31 @@ class CLI
   end
 
   def read_recipe(input)
-    recipe = @s.recipes[input.to_i-1]
-    @s.scrape_recipe_details(recipe)
+    @recipe = @s.recipes[input.to_i-1]
+    @s.scrape_recipe_details(@recipe)
     puts ""
-    puts "___________________________________________   ".colorize(:color => :magenta) + " #{recipe.name} ".upcase.colorize(:color => :yellow).bold + "   ________________________________________________".colorize(:color => :magenta)
+    puts "___________________________________________   ".colorize(:color => :magenta) + " #{@recipe.name} ".upcase.colorize(:color => :yellow).bold + "   ________________________________________________".colorize(:color => :magenta)
     puts ""
     puts ""
-    puts "Star rating:  #{recipe.grade}/5 "
-    puts "Recipe reviews:  #{recipe.reviews} "
+    puts "Star rating:  #{@recipe.grade}/5 "
+    puts "Recipe reviews:  #{@recipe.reviews} "
     puts ""
     puts "____________________________________________________________".colorize(:color => :magenta)
     puts "                        History                          \n ".colorize(:color => :yellow).bold
-    puts " #{recipe.history}"
+    puts " #{@recipe.history}"
     puts "____________________________________________________________".colorize(:color => :magenta)
     puts "                        Details                           \n".colorize(:color => :yellow).bold
-    puts "Ready in:           #{recipe.ready_in_time}"
-    puts "Doses for:           #{recipe.dose_for}"
-    puts "Difficulty:           #{recipe.difficulty}"
+    puts "Ready in:           #{@recipe.ready_in_time}"
+    puts "Doses for:           #{@recipe.dose_for}"
+    puts "Difficulty:           #{@recipe.difficulty}"
     puts "_____________________________________________________________".colorize(:color => :magenta)
     puts "                        Ingridients                      \n  ".colorize(:color => :yellow).bold
-    puts "  #{recipe.ingridients}"
+    puts "  #{@recipe.ingridients}"
     puts ""
     puts "_____________________________________________________________".colorize(:color => :magenta)
     puts "             Procedure, Curiosities and tips              \n ".colorize(:color => :yellow).bold
     puts ""
-    puts "#{recipe.instructions}\n"
+    puts "#{@recipe.instructions}\n"
     puts ""
     puts "______________________________________________________________________________________________________________________".colorize(:color => :magenta)
   end
@@ -112,7 +114,6 @@ class CLI
   end
 
   def add_recipe_to_favourites(input)
-    recipe = @s.recipes[input.to_i-1]
     puts "Do you like this recipe? Would you like to save it in your " + "'Favorites List'".colorize(:color => :yellow).bold + " and display it?[y/n]"
     command = ""
     until command == "y" || command == "n"
@@ -120,8 +121,8 @@ class CLI
       case command
       when "y"
         puts "Recipe has been saved!".colorize(:color => :green)
-        recipe.class.add_to_favourites(recipe)
-        recipe.class.favourites.each.with_index(1) do |recipe, i|
+        @recipe.class.add_to_favourites(@recipe)
+        @recipe.class.favourites.each.with_index(1) do |recipe, i|
           puts "-----------------------------------------------------".colorize(:color => :magenta)
           puts " #{(i).to_s}. " + "#{recipe.name}".colorize(:color => :green)
           puts " "
