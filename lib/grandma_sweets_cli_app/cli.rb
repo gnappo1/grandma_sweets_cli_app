@@ -53,7 +53,7 @@ class CLI
       input = gets.strip.downcase
       case input
       when /\d+/
-        ( invalid_selection; next;) unless input.to_i.between?(1,Recipe.all.length)
+        ( invalid_selection; next;) unless input.to_i.between?(1,@s.recipes.length)
         read_recipe(input)
         sleep 2
         add_recipe_to_favourites

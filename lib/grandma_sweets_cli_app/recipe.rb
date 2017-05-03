@@ -12,7 +12,7 @@ class Recipe
   end
 
   def self.add_to_favourites(recipe)
-    self.favourites << recipe unless !recipe.is_a?(Recipe)
+    self.favourites << recipe unless !recipe.is_a?(Recipe) || self.favourites.include?(recipe)
   end
 
   def self.favourites
