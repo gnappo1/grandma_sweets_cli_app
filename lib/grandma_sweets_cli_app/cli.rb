@@ -13,8 +13,7 @@ class CLI
     list_recipes
     sleep 0.5
     meditation_pause
-    select_recipe
-    goodbye
+    select_recipe(input)
   end
 
   def list_recipes
@@ -35,14 +34,14 @@ class CLI
       input = gets.strip.downcase
       if input == "c"
         clear
-        select_recipe
+        select_recipe(input)
       else
         puts "Wrong input. Type " + "'c'".colorize(:color => :green) + " to continue."
       end
     end
   end
 
-  def select_recipe
+  def select_recipe(input)
     puts "So many delicious recipes... Which one would you like to try?\n\n"
     puts "Type the " + "number".colorize(:color => :yellow).bold + " corrisponding to the recipe you'd like to know more about, " + "'back'".colorize(:color => :green).bold + " to list the articles again or " + "'exit'".colorize(:color => :red).bold + " to exit the program."
     input = ""
@@ -52,12 +51,12 @@ class CLI
       when /^([1-9]|1[0-5])$/
         read_recipe(input)
         sleep 2
-        add_recipe_to_favourites(input)
+        add_recipe_to_favourites
         more_recipes
       when "back"
         clear
         list_recipes
-        select_recipe
+        select_recipe(input)
       when "exit"
         goodbye
       else
@@ -91,7 +90,7 @@ class CLI
     puts "_____________________________________________________________".colorize(:color => :magenta)
     puts "             Procedure, Curiosities and tips              \n ".colorize(:color => :yellow).bold
     puts ""
-    puts "#{@recipe.instructions}\n"
+         @recipe.instructions.each {|p| puts " #{p}\n\n"}
     puts ""
     puts "______________________________________________________________________________________________________________________".colorize(:color => :magenta)
   end
@@ -104,7 +103,7 @@ class CLI
       case input
       when "y"
         list_recipes
-        select_recipe
+        select_recipe(input)
       when "n"
         self.goodbye
       else
@@ -113,7 +112,7 @@ class CLI
     end
   end
 
-  def add_recipe_to_favourites(input)
+  def add_recipe_to_favourites
     puts "Do you like this recipe? Would you like to save it in your " + "'Favorites List'".colorize(:color => :yellow).bold + " and display it?[y/n]"
     command = ""
     until command == "y" || command == "n"
