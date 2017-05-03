@@ -2,53 +2,24 @@ class Scraper
 
   def initialize
     @recipes = []
+    @urls_array = ["http://www.giallozafferano.it/ricette-cat/Dolci-e-Desserts/", "http://www.giallozafferano.it/ricette-cat/page2/Dolci-e-Desserts/", "http://www.giallozafferano.it/ricette-cat/page3/Dolci-e-Desserts/", "http://www.giallozafferano.it/ricette-cat/page4/Dolci-e-Desserts/"]
   end
 
   def recipes
     @recipes
   end
 
-  def scrape_recipes_page_1
-    Nokogiri::HTML(open("http://www.giallozafferano.it/ricette-cat/Dolci-e-Desserts/")).css("article").each do |r|
-      recipe = Recipe.new
-      recipe.name = r.css("h3 a").text
-      recipe.description = r.css("p").text
-      recipe.url = r.css("a").attr("href").value
-      @recipes << recipe
+  def scrape_recipes
+    @urls_array.each do |url|
+      Nokogiri::HTML(open(url)).css("article").each do |r|
+        recipe = Recipe.new
+        recipe.name = r.css("h3 a").text
+        recipe.description = r.css("p").text
+        recipe.url = r.css("a").attr("href").value
+        @recipes << recipe
+      end
     end
   end
-
-  def scrape_recipes_page_2
-    Nokogiri::HTML(open("http://www.giallozafferano.it/ricette-cat/page2/Dolci-e-Desserts/")).css("article").each do |r|
-      recipe = Recipe.new
-      recipe.name = r.css("h3 a").text
-      recipe.description = r.css("p").text
-      recipe.url = r.css("a").attr("href").value
-      @recipes << recipe
-    end
-  end
-
-  def scrape_recipes_page_3
-    Nokogiri::HTML(open("http://www.giallozafferano.it/ricette-cat/page3/Dolci-e-Desserts/")).css("article").each do |r|
-      recipe = Recipe.new
-      recipe.name = r.css("h3 a").text
-      recipe.description = r.css("p").text
-      recipe.url = r.css("a").attr("href").value
-      @recipes << recipe
-    end
-  end
-
-  def scrape_recipes_page_4
-    Nokogiri::HTML(open("http://www.giallozafferano.it/ricette-cat/page4/Dolci-e-Desserts/")).css("article").each do |r|
-      recipe = Recipe.new
-      recipe.name = r.css("h3 a").text
-      recipe.description = r.css("p").text
-      recipe.url = r.css("a").attr("href").value
-      @recipes << recipe
-    end
-  end
-
-
 
   def scrape_recipe_details(recipe)
     recipe_page = Nokogiri::HTML(open(recipe.url))

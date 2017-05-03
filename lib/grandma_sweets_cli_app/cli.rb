@@ -8,8 +8,7 @@ class CLI
   end
 
   def call
-    @s.scrape_recipes_page_1 && @s.scrape_recipes_page_2 && @s.scrape_recipes_page_3 && @s.scrape_recipes_page_4
-    sleep 4
+    @s.scrape_recipes 
     list_recipes
     sleep 0.5
     meditation_pause
