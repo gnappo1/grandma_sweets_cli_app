@@ -47,7 +47,7 @@ class CLI
 
   def select_recipe(input)
     puts "So many delicious recipes... Which one would you like to try?\n\n"
-    puts "Type the " + "number".colorize(:color => :yellow).bold + " corrisponding to the recipe you'd like to know more about, " + "'back'".colorize(:color => :green).bold + " to list the articles again or " + "'exit'".colorize(:color => :red).bold + " to exit the program."
+    puts "Type the " + "number".colorize(:color => :yellow).bold + " corrisponding to the recipe you'd like to know more about, " + "'back'".colorize(:color => :green).bold + " to list the recipes again or " + "'exit'".colorize(:color => :red).bold + " to exit the program."
     input = ""
     while input != "exit" || input != "back"
       input = gets.strip.downcase
