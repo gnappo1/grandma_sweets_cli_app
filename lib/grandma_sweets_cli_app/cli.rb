@@ -72,7 +72,7 @@ class CLI
   end
 
   def read_recipe(input_recipe)
-    @recipe = @s.recipes[input_recipe.to_i-1]
+    @recipe = Recipe.find(input_recipe)
     @s.scrape_recipe_details(@recipe)
     puts ""
     puts "___________________________________________   ".colorize(:color => :magenta) + " #{@recipe.name} ".upcase.colorize(:color => :yellow).bold + "   ________________________________________________".colorize(:color => :magenta)

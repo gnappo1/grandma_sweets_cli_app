@@ -7,6 +7,10 @@ class Recipe
     self.class.all << self
   end
 
+  def self.find(input_recipe)
+    self.all[input_recipe.to_i-1]
+  end
+
   def self.all
     @@all
   end
