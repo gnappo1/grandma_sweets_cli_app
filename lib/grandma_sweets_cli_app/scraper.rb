@@ -8,7 +8,7 @@ class Scraper
     @recipes
   end
 
-  def scrape_recipes
+  def scrape_recipes_page_1
     Nokogiri::HTML(open("http://www.giallozafferano.it/ricette-cat/Dolci-e-Desserts/")).css("article").each do |r|
       recipe = Recipe.new
       recipe.name = r.css("h3 a").text
@@ -17,6 +17,16 @@ class Scraper
       @recipes << recipe
     end
   end
+
+  def scrape_recipes_page_2
+    Nokogiri::HTML(open("http://www.giallozafferano.it/ricette-cat/page2/Dolci-e-Desserts/")).css("article").each do |r|
+      recipe = Recipe.new
+      recipe.name = r.css("h3 a").text
+      recipe.description = r.css("p").text
+      recipe.url = r.css("a").attr("href").value
+      @recipes << recipe
+    end
+  end  
 
   def scrape_recipe_details(recipe)
     recipe_page = Nokogiri::HTML(open(recipe.url))
