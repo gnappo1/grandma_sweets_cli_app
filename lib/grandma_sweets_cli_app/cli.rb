@@ -41,6 +41,10 @@ class CLI
     end
   end
 
+  def invalid_selection
+    puts "Wrong input. Please type the " + " number ".colorize(:color => :yellow).bold + "of the recipe you're interested in, type " + "'back'".colorize(:color => :green).bold + " to list again all recipes or " + "'exit'".colorize(:color => :red).bold + " to exit"
+  end
+
   def select_recipe(input)
     puts "So many delicious recipes... Which one would you like to try?\n\n"
     puts "Type the " + "number".colorize(:color => :yellow).bold + " corrisponding to the recipe you'd like to know more about, " + "'back'".colorize(:color => :green).bold + " to list the articles again or " + "'exit'".colorize(:color => :red).bold + " to exit the program."
@@ -48,7 +52,8 @@ class CLI
     while input != "exit" || input != "back"
       input = gets.strip.downcase
       case input
-      when /^([1-9]|1[0-5])$/
+      when /\d+/
+        ( invalid_selection; next;) unless input.to_i.between?(1,Recipe.all.length)
         read_recipe(input)
         sleep 2
         add_recipe_to_favourites
@@ -60,7 +65,7 @@ class CLI
       when "exit"
         goodbye
       else
-        puts "Wrong input. Please type the " + " number ".colorize(:color => :yellow).bold + "of the recipe you're interested in, type " + "'back'".colorize(:color => :green).bold + " to list again all recipes or " + "'exit'".colorize(:color => :red).bold + " to exit"
+        invalid_selection
       end
     end
   end
