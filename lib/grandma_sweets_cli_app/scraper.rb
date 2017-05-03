@@ -38,6 +38,18 @@ class Scraper
     end
   end
 
+  def scrape_recipes_page_4
+    Nokogiri::HTML(open("http://www.giallozafferano.it/ricette-cat/page4/Dolci-e-Desserts/")).css("article").each do |r|
+      recipe = Recipe.new
+      recipe.name = r.css("h3 a").text
+      recipe.description = r.css("p").text
+      recipe.url = r.css("a").attr("href").value
+      @recipes << recipe
+    end
+  end
+
+
+
   def scrape_recipe_details(recipe)
     recipe_page = Nokogiri::HTML(open(recipe.url))
     recipe.grade = recipe_page.css(".rating_panel").attr("data-content-rate").text
