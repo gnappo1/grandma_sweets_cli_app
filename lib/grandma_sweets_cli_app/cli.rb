@@ -13,7 +13,7 @@ class CLI
     list_recipes
     sleep 0.5
     meditation_pause
-    select_recipe(input)
+    select_recipe(input_recipe)
   end
 
   def list_recipes
@@ -29,12 +29,12 @@ class CLI
 
   def meditation_pause
     puts "Press " + "'c'".colorize(:color => :green) + " when you feel ready to pick your recipe."
-    input = ""
-    while input != "c"
-      input = gets.strip.downcase
-      if input == "c"
+    input_continue = ""
+    while input_continue != "c"
+      input_continue = gets.strip.downcase
+      if input_continue == "c"
         clear
-        select_recipe(input)
+        select_recipe(input_continue)
       else
         puts "Wrong input. Type " + "'c'".colorize(:color => :green) + " to continue."
       end
@@ -45,16 +45,16 @@ class CLI
     puts "Wrong input. Please type the " + " number ".colorize(:color => :yellow).bold + "of the recipe you're interested in, type " + "'back'".colorize(:color => :green).bold + " to list again all recipes or " + "'exit'".colorize(:color => :red).bold + " to exit"
   end
 
-  def select_recipe(input)
+  def select_recipe(input_recipe)
     puts "So many delicious recipes... Which one would you like to try?\n\n"
     puts "Type the " + "number".colorize(:color => :yellow).bold + " corrisponding to the recipe you'd like to know more about, " + "'back'".colorize(:color => :green).bold + " to list the recipes again or " + "'exit'".colorize(:color => :red).bold + " to exit the program."
-    input = ""
-    while input != "exit" || input != "back"
-      input = gets.strip.downcase
-      case input
+    input_recipe = ""
+    while input_recipe != "exit" || input_recipe != "back"
+      input_recipe = gets.strip.downcase
+      case input_recipe
       when /\d+/
-        ( invalid_selection; next;) unless input.to_i.between?(1,@s.recipes.length)
-        read_recipe(input)
+        ( invalid_selection; next;) unless input_recipe.to_i.between?(1,@s.recipes.length)
+        read_recipe(input_recipe)
         open_in_browser?
         sleep 2
         add_recipe_to_favourites
@@ -62,7 +62,7 @@ class CLI
       when "back"
         clear
         list_recipes
-        select_recipe(input)
+        select_recipe(input_recipe)
       when "exit"
         goodbye
       else
@@ -71,8 +71,8 @@ class CLI
     end
   end
 
-  def read_recipe(input)
-    @recipe = @s.recipes[input.to_i-1]
+  def read_recipe(input_recipe)
+    @recipe = @s.recipes[input_recipe.to_i-1]
     @s.scrape_recipe_details(@recipe)
     puts ""
     puts "___________________________________________   ".colorize(:color => :magenta) + " #{@recipe.name} ".upcase.colorize(:color => :yellow).bold + "   ________________________________________________".colorize(:color => :magenta)
@@ -103,10 +103,10 @@ class CLI
 
   def open_in_browser?
     puts "Would you like to open the browser page of this recipe? Type " + "'y'".colorize(:color => :green) + " for yes and " + "'n'".colorize(:color => :red) + " for no."
-    input = ""
-    until input == "y" || input == "n"
-      input = gets.strip.downcase
-      case input
+    input_open = ""
+    until input_open == "y" || input_open == "n"
+      input_open = gets.strip.downcase
+      case input_open
       when "y"
         @recipe.open_in_browser
       when "n"
@@ -120,13 +120,13 @@ class CLI
 
   def more_recipes
     puts "Would you like to see any other recipes? Type " + "'y'".colorize(:color => :green) + " for yes and " + "'n'".colorize(:color => :red) + " to exit the program."
-    input = ""
-    until input == "y" || input == "n"
-      input = gets.strip.downcase
-      case input
+    input_yes_no = ""
+    until input_yes_no == "y" || input_yes_no == "n"
+      input_yes_no = gets.strip.downcase
+      case input_yes_no
       when "y"
         list_recipes
-        select_recipe(input)
+        select_recipe(input_yes_no)
       when "n"
         self.goodbye
       else
@@ -138,10 +138,10 @@ class CLI
   def add_recipe_to_favourites
     puts "Do you like this recipe? Would you like to save it in your " + "'Favorites List'".colorize(:color => :yellow).bold + " and display it?"
     puts "Type " + "'y'".colorize(:color => :green) + " for yes and " + "'n'".colorize(:color => :red) + " for no."
-    command = ""
-    until command == "y" || command == "n"
-      command = gets.strip.downcase
-      case command
+    input_yes_no = ""
+    until input_yes_no == "y" || input_yes_no == "n"
+      input_yes_no = gets.strip.downcase
+      case input_yes_no
       when "y"
         puts "Recipe has been saved!".colorize(:color => :green)
         @recipe.class.add_to_favourites(@recipe)
