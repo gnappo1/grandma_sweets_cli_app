@@ -55,6 +55,7 @@ class CLI
       when /\d+/
         ( invalid_selection; next;) unless input.to_i.between?(1,@s.recipes.length)
         read_recipe(input)
+        open_in_browser?
         sleep 2
         add_recipe_to_favourites
         more_recipes
@@ -100,6 +101,23 @@ class CLI
     puts "______________________________________________________________________________________________________________________".colorize(:color => :magenta)
   end
 
+  def open_in_browser?
+    puts "Would you like to open the browser page of this recipe? Type " + "'y'".colorize(:color => :green) + " for yes and " + "'n'".colorize(:color => :red) + " for no."
+    input = ""
+    until input == "y" || input == "n"
+      input = gets.strip.downcase
+      case input
+      when "y"
+        @recipe.open_in_browser
+      when "n"
+        puts "Maybe some other time... There is some interesting info that you don't want to miss!"
+      else
+        puts "Wrong input. Please type Type " + "'y'".colorize(:color => :green) + " for yes and " + "'n'".colorize(:color => :red) + " for no."
+      end
+    end
+  end
+
+
   def more_recipes
     puts "Would you like to see any other recipes? Type " + "'y'".colorize(:color => :green) + " for yes and " + "'n'".colorize(:color => :red) + " to exit the program."
     input = ""
@@ -118,7 +136,8 @@ class CLI
   end
 
   def add_recipe_to_favourites
-    puts "Do you like this recipe? Would you like to save it in your " + "'Favorites List'".colorize(:color => :yellow).bold + " and display it?[y/n]"
+    puts "Do you like this recipe? Would you like to save it in your " + "'Favorites List'".colorize(:color => :yellow).bold + " and display it?"
+    puts "Type " + "'y'".colorize(:color => :green) + " for yes and " + "'n'".colorize(:color => :red) + " for no."
     command = ""
     until command == "y" || command == "n"
       command = gets.strip.downcase

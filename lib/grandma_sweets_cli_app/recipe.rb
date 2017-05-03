@@ -15,6 +15,10 @@ class Recipe
     self.favourites << recipe unless !recipe.is_a?(Recipe) || self.favourites.include?(recipe)
   end
 
+  def open_in_browser
+    system("open '#{url}'")
+  end
+
   def self.favourites
     @@favourites
   end
