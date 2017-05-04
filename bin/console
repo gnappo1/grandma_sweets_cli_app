@@ -10,5 +10,9 @@ require "grandma_sweets_cli_app"
 # require "pry"
 # Pry.start
 
+def reload!
+  load './lib/grandma_sweets_cli_app/recipe.rb'
+end
+
 require "irb"
 IRB.start(__FILE__)

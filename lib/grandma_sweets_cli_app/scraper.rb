@@ -2,7 +2,7 @@ class Scraper
 
   def initialize
     @recipes = []
-    @urls_array = ["http://www.giallozafferano.it/ricette-cat/Dolci-e-Desserts/", "http://www.giallozafferano.it/ricette-cat/page2/Dolci-e-Desserts/", "http://www.giallozafferano.it/ricette-cat/page3/Dolci-e-Desserts/", "http://www.giallozafferano.it/ricette-cat/page4/Dolci-e-Desserts/"]
+    @urls_array = ["http://www.giallozafferano.it/ricette-cat/Dolci-e-Desserts/", "http://www.giallozafferano.it/ricette-cat/page2/Dolci-e-Desserts/", "http://www.giallozafferano.it/ricette-cat/page3/Dolci-e-Desserts/", "http://www.giallozafferano.it/ricette-cat/page4/Dolci-e-Desserts/", "http://www.giallozafferano.it/ricette-cat/page5/Dolci-e-Desserts/", "http://www.giallozafferano.it/ricette-cat/page6/Dolci-e-Desserts/", "http://www.giallozafferano.it/ricette-cat/page7/Dolci-e-Desserts/"]
   end
 
   def recipes

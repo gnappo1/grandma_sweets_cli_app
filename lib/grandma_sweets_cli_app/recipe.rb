@@ -11,6 +11,10 @@ class Recipe
     self.all[input_recipe.to_i-1]
   end
 
+  def self.find_by(name)
+    self.all.detect{|r| r.name.strip.downcase == name.strip.downcase}
+  end 
+
   def self.all
     @@all
   end

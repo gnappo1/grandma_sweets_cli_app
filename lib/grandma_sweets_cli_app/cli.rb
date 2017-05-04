@@ -8,7 +8,7 @@ class CLI
   end
 
   def call
-    @s.scrape_recipes 
+    @s.scrape_recipes
     list_recipes
     sleep 0.5
     meditation_pause
@@ -17,7 +17,7 @@ class CLI
 
   def list_recipes
     puts "Here's the list of our recipes:"
-    @s.recipes.each.with_index(1) do |recipe, i|
+    Recipe.all.each.with_index(1) do |recipe, i|
       puts "-----------------------------------------------------".colorize(:color => :magenta)
       puts " #{(i).to_s}. " + "#{recipe.name}".colorize(:color => :green)
       puts " "
@@ -51,8 +51,8 @@ class CLI
     while input_recipe != "exit" || input_recipe != "back"
       input_recipe = gets.strip.downcase
       case input_recipe
-      when /\d+/
-        ( invalid_selection; next;) unless input_recipe.to_i.between?(1,@s.recipes.length)
+      when /^[0-9]+$/
+        ( invalid_selection; next;) unless input_recipe.to_i.between?(1,Recipe.all.length)
         read_recipe(input_recipe)
         open_in_browser?
         sleep 2
@@ -143,19 +143,23 @@ class CLI
       case input_yes_no
       when "y"
         puts "Recipe has been saved!".colorize(:color => :green)
-        @recipe.class.add_to_favourites(@recipe)
-        @recipe.class.favourites.each.with_index(1) do |recipe, i|
-          puts "-----------------------------------------------------".colorize(:color => :magenta)
-          puts " #{(i).to_s}. " + "#{recipe.name}".colorize(:color => :green)
-          puts " "
-          puts "     #{recipe.description}"
-          puts "-----------------------------------------------------".colorize(:color => :magenta)
-        end
+        Recipe.add_to_favourites(@recipe)
+        print_favourites
       when "n"
         puts "Recipe hasn't been saved.".colorize(:color => :green)
       else
         puts "Wrong input. Please type Type " + "'y'".colorize(:color => :green) + " for yes and " + "'n'".colorize(:color => :red) + " for no."
       end
+    end
+  end
+
+  def print_favourites
+    Recipe.favourites.each.with_index(1) do |recipe, i|
+      puts "-----------------------------------------------------".colorize(:color => :magenta)
+      puts " #{(i).to_s}. " + "#{recipe.name}".colorize(:color => :green)
+      puts " "
+      puts "     #{recipe.description}"
+      puts "-----------------------------------------------------".colorize(:color => :magenta)
     end
   end
 
