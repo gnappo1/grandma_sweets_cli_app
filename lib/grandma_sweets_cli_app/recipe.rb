@@ -13,7 +13,7 @@ class Recipe
 
   def self.find_by(name)
     self.all.detect{|r| r.name.strip.downcase == name.strip.downcase}
-  end 
+  end
 
   def self.all
     @@all
@@ -29,5 +29,9 @@ class Recipe
 
   def self.favourites
     @@favourites
+  end
+
+  def self.sort_by_review
+    self.all.sort_by{|recipe| recipe.reviews.to_i}.reverse
   end
 end

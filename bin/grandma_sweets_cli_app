@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require "bundler/setup"
-require "grandma_sweets_cli_app"
+require_relative "../lib/grandma_sweets_cli_app"
 
 CLI.new.call
 # execusion point (what the user runs)
